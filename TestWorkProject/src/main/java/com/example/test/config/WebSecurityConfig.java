@@ -8,6 +8,7 @@ package com.example.test.config;
 import com.example.test.service.UserDetailsServiceImpl;
 //import com.example.test.config.SimpleUrlAuthenticationSuccessHandler;
 import com.example.test.service.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +29,12 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 // настройка безопасности и авторизации, кому куда можно
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+
+    private final UserDetailsServiceImpl userDetailsService;
     //private UserDetailsService userDetailsService;
 
     // кодировка пароля
@@ -47,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new SimpleUrlAuthenticationSuccessHandler();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+    public final void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoderB());
 

@@ -9,6 +9,8 @@ import com.example.test.entity.Users;
 import com.example.test.repos.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +25,12 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+@RequiredArgsConstructor
+
 public class UserDetailsServiceImpl implements UserDetailsService{
 
-    @Autowired
-    private UsersRepository userRepository;
+
+    private final UsersRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

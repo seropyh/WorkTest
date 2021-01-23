@@ -11,6 +11,7 @@ import com.example.test.repos.RolesRepository;
 import com.example.test.repos.UsersRepository;
 import javax.transaction.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -26,17 +27,12 @@ import org.springframework.stereotype.Component;
  */
 //инициализация базы даннхы пользователями и ролями
 @Component
+@RequiredArgsConstructor
 public class SetupDataLoader implements  ApplicationListener<ContextRefreshedEvent> {
     private boolean alreadySetup = false;
-
-    @Autowired
-    private UsersRepository userRepository;
-
-    @Autowired
-    private RolesRepository roleRepository;
-    
-     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UsersRepository userRepository;
+    private final RolesRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
     
     
     
@@ -85,13 +81,6 @@ public class SetupDataLoader implements  ApplicationListener<ContextRefreshedEve
         user = userRepository.save(user);
         return user;
     }
-/*
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
 
- */
 }
 
